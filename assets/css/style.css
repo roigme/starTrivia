@@ -1,5 +1,6 @@
 body {
     padding-top: 85px;
+    padding-bottom: 85px;
     margin: auto;
     background-image: url('../../assets/images/background.jpg');
 }
@@ -22,6 +23,12 @@ body {
 
 .spacer{
     height: 30px;
+}
+
+@media only screen and (max-width: 790px) {
+    .spacer{
+        height:0px;
+    }
 }
 #titlegem{
     height: 64px;
