@@ -67,7 +67,7 @@ $(document).ready(function(){
     var playQuestion= questions[i]; //this variable is the current question "object" 
     var right=0; //counter variable for correct answers
     var wrong=0; //counter for incorrect answers
-    var timerCounter;// variable for the timer to help set the interval at which the timer runs
+    var counter;// variable for the timer to help set the interval at which the timer runs
     var count = 120; //seconds for the timer
     
 $("#timer").text(count);
@@ -82,7 +82,7 @@ $("#wrong").text("Incorrect: "+ wrong);
 //In the game space div we replace the start button with the new html buttons
 $(document).on("click", "#start", function(){
         i = 0;
-        timerCounter=setInterval(timer, 1000); //timer runs every second
+        counter=setInterval(timer, 1000); //timer runs every second
         $('#gameSpace').html(
             '<div class= "col-sm-3"></div>'+
             '<div class= "col-sm-6">'+
@@ -140,7 +140,11 @@ if (count <= 0)
     
     //set function that changes associated html elements to represent the new question
     function set(){
-        if (i > 9){ clearInterval(counter); timesup()}
+       console.log(questions.length)
+       console.log(i)
+       
+       
+       if (i+1 > questions.length){ timesup()}
 
         else {
         
@@ -162,20 +166,21 @@ if (count <= 0)
 
         // checks the players choice against the correct attribute, if it is correct, increase i and setup the next question increases the correct tally
         if (playerChoice === playQuestion.correct){
+           correct(); 
             i++;
             playQuestion= questions[i];
             right++;
              $("#right").text("Correct: "+ right);
-            correct();
+            
             
         }
             // checks the players choice against the correct attribute, if it is correct, increase i and setup the next question increases the incorrect tally
         else {
-            i++;
+           incorrect(); i++;
             playQuestion= questions[i];
             wrong++;
             $("#wrong").text("Incorrect: "+ wrong);
-            incorrect();
+            
            
         };
         
@@ -204,7 +209,7 @@ if (count <= 0)
 
     // this function runs when the timer reaches 0 or when the player runs out of questions in the bank
     function timesup(){
-
+        clearInterval(counter); 
         $('h2').text('Game over!!! You got '+right+' correct!!') //set the h2 where the questions are displayed to alert the player that
                         
      //  changes the game space to display the rest button
